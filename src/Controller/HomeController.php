@@ -2,14 +2,26 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpClient\NativeHttpClient;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\Response;
 
-class HomeController
+class HomeController extends AbstractController
 {
+    private $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
+    public function home(): Response
+    {
+        return $this->render('index.html.twig');
+    }
+
     private function payPal($timeout = 20)
     {
-        $client = new NativeHttpClient();
-
         //production endpoint
         //$endpoint = 'https://api-m.paypal.com';
 
@@ -19,7 +31,7 @@ class HomeController
         $client = 'A21AAJxUmKFk5OQ1Sm9y_HaoPUCMgmzNqVKhNStGhChb7bbc4eRKsdAB-b6aBb8ef45g_7qiyb9fMR-uFggB8HBTxEK_jDuHw';
         $secret = 'A21AAJxUmKFk5OQ1Sm9y_HaoPUCMgmzNqVKhNStGhChb7bbc4eRKsdAB-b6aBb8ef45g_7qiyb9fMR-uFggB8HBTxEK_jDuHw';
 
-        $response = $client->request(
+        $response = $this->client->request(
             'POST', $endpoint . '/v1/payments/payment',  [
                 'headers' => [
                     'Content-Type' => 'application/json',

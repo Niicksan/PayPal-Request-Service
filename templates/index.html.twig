@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <script
+            src="https://www.paypal.com/sdk/js?client-id=Ac1AU4YJ-aTxpnJua5khbyNng5qi1PxdvvDgNgRtIEflIv3pab4pvHxPcxfmzzykS7N6k6D6IRzwAY0Y"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+    </script>
+
+    <div id="paypal-button-container"></div>
+
+    <script>
+        paypal.Buttons().render('#paypal-button-container');
+        // This function displays Smart Payment Buttons on your web page.
+    </script>
+{% endblock %}
+
+{%  block javascript %}
+// <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+//
+// <script>
+//     paypal.Button.render({
+//         // Configure environment
+//         env: 'sandbox',
+//         client: {
+//             sandbox: 'demo_sandbox_client_id',
+//             production: 'demo_production_client_id'
+//         },
+//
+//         // Customize button (optional)
+//         locale: 'en_US',
+//         style: {
+//             size: 'small',
+//             color: 'gold',
+//             shape: 'pill',
+//         },
+//
+//         // Enable Pay Now checkout flow (optional)
+//         commit: true,
+//
+//         // Set up a payment
+//         payment: function(data, actions) {
+//             return actions.payment.create({
+//                 transactions: [{
+//                     amount: {
+//                         total: '0.01',
+//                         currency: 'USD'
+//                     }
+//                 }]
+//             });
+//         },
+//
+//         // Execute the payment
+//         onAuthorize: function(data, actions) {
+//             return actions.payment.execute().then(function() {
+//                 // Show a confirmation message to the buyer
+//                 window.alert('Thank you for your purchase!');
+//             });
+//         }
+//     }, '#paypal-button');
+// </script>
+{% endblock %}
